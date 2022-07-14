@@ -39,7 +39,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
            return cell
        }
-        
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           performSegue(withIdentifier: "showDetails", sender: self)
+       }
+       
+       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           if let destination = segue.destination as? DogViewController {
+               destination.dog = dogs[tableView.indexPathForSelectedRow!.row]
+           }
+       }
+    
     
     func downloadJSON(completed: @escaping () -> ()) {
         let url = URL(string: "https://api.opendota.com/api/heroStats")
